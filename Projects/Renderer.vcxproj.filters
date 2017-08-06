@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Shaders">
+      <UniqueIdentifier>{0becd86f-f242-4362-97f5-1c08a3849c17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{06c8a65a-9962-4ff0-9228-3dea2803af25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{637b5ae6-52e2-445c-9085-63dde6268d29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Material">
+      <UniqueIdentifier>{e969bb21-bad3-4cdc-8bf1-a226d184d65b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Model">
+      <UniqueIdentifier>{34481c47-4f6e-45e5-81b7-4422e7ea4e1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Texture">
+      <UniqueIdentifier>{2b2f7d61-c637-43f6-836f-0c1bd1b080ba}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Sources\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\Camera.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\Transform.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\Material\Material.cpp">
+      <Filter>Source Files\Core\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\Model\Mesh.cpp">
+      <Filter>Source Files\Core\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\Model\Model.cpp">
+      <Filter>Source Files\Core\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\Texture\Texture.cpp">
+      <Filter>Source Files\Core\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\ResourceManager.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\Sources\Shaders\simple_unlit.hlsl">
+      <Filter>Source Files\Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Sources\Utils\Util.h">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Camera.h">
+      <Filter>Source Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Transform.h">
+      <Filter>Source Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Material\Material.h">
+      <Filter>Source Files\Core\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Model\Mesh.h">
+      <Filter>Source Files\Core\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Model\Model.h">
+      <Filter>Source Files\Core\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Texture\Texture.h">
+      <Filter>Source Files\Core\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\ResourceManager.h">
+      <Filter>Source Files\Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
