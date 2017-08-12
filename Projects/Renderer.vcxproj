@@ -74,7 +74,7 @@
     <OutDir>..\Output\</OutDir>
     <IntDir>..\Intermediate\</IntDir>
     <ExecutablePath>$(DXSDK_DIR)Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>$(DXSDK_DIR)Include;../Sources;$(IncludePath)</IncludePath>
+    <IncludePath>$(DXSDK_DIR)Include;../Sources;../Extern/STB_Image;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -152,9 +152,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Sources\Core\Application.cpp" />
     <ClCompile Include="..\Sources\Core\Camera.cpp" />
     <ClCompile Include="..\Sources\Core\Material\Material.cpp" />
-    <ClCompile Include="..\Sources\Core\Model\Mesh.cpp" />
     <ClCompile Include="..\Sources\Core\Model\Model.cpp" />
     <ClCompile Include="..\Sources\Core\ResourceManager.cpp" />
     <ClCompile Include="..\Sources\Core\Texture\Texture.cpp" />
@@ -167,9 +167,9 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Sources\Core\Application.h" />
     <ClInclude Include="..\Sources\Core\Camera.h" />
     <ClInclude Include="..\Sources\Core\Material\Material.h" />
-    <ClInclude Include="..\Sources\Core\Model\Mesh.h" />
     <ClInclude Include="..\Sources\Core\Model\Model.h" />
     <ClInclude Include="..\Sources\Core\ResourceManager.h" />
     <ClInclude Include="..\Sources\Core\Texture\Texture.h" />

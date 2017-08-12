@@ -2,6 +2,9 @@
 
 Transform::Transform()
 {
+	memset(&m_position, 0, sizeof(m_position));
+	memset(&m_scale, 0, sizeof(m_scale));
+	memset(&m_eulerRotation, 0, sizeof(m_eulerRotation));
 	D3DXMatrixIdentity(&m_localToParent);
 }
 

@@ -37,9 +37,6 @@
     <ClCompile Include="..\Sources\Core\Material\Material.cpp">
       <Filter>Source Files\Core\Material</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\Core\Model\Mesh.cpp">
-      <Filter>Source Files\Core\Model</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\Core\Model\Model.cpp">
       <Filter>Source Files\Core\Model</Filter>
     </ClCompile>
@@ -47,6 +44,9 @@
       <Filter>Source Files\Core\Texture</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\Core\ResourceManager.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\Core\Application.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,9 +68,6 @@
     <ClInclude Include="..\Sources\Core\Material\Material.h">
       <Filter>Source Files\Core\Material</Filter>
     </ClInclude>
-    <ClInclude Include="..\Sources\Core\Model\Mesh.h">
-      <Filter>Source Files\Core\Model</Filter>
-    </ClInclude>
     <ClInclude Include="..\Sources\Core\Model\Model.h">
       <Filter>Source Files\Core\Model</Filter>
     </ClInclude>
@@ -78,6 +75,9 @@
       <Filter>Source Files\Core\Texture</Filter>
     </ClInclude>
     <ClInclude Include="..\Sources\Core\ResourceManager.h">
+      <Filter>Source Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\Core\Application.h">
       <Filter>Source Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
