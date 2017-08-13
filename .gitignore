@@ -1,2 +1,13 @@
 
 *.user
+*.tlog
+*.obj
+*.log
+.vs/Renderer/v14/.suo
+*.idb
+*.pdb
+*.exe
+*.ilk
+*.opendb
+Renderer.VC.db
+Resources/test.jpg

@@ -21,23 +21,35 @@ void Texture::LoadData()
 	unsigned char *data = stbi_load(m_path.c_str(), &width, &height, &nrChannels, 0);
 	if (data)
 	{
-		HRESULT hr = Application::m_pd3dDevice->CreateTexture(width, height, 0, 0, D3DFMT_R8G8B8, D3DPOOL_DEFAULT, &m_pDeviceTexture, NULL);
-		assert(hr == S_OK);
-		D3DLOCKED_RECT *pLockedRect = NULL;
-		m_pDeviceTexture->LockRect(0, pLockedRect, NULL, 0);
-		BYTE* pTextureBuffer = static_cast<BYTE*>(pLockedRect->pBits);
-		INT   nTexturePitch = pLockedRect->Pitch;
+		HRESULT hr = Application::m_pd3dDevice->CreateTexture(width, height, 0, 0, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, &m_pDeviceTexture, NULL);
+		if (FAILED(hr)) 
+		{
+			::MessageBoxA(0, (LPCSTR)DXGetErrorDescriptionA(hr), (LPCSTR)DXGetErrorStringA(hr), 0);
+			return;
+		}
+
+		D3DLOCKED_RECT pLockedRect;
+		hr = m_pDeviceTexture->LockRect(0, &pLockedRect, NULL, 0);
+		if (FAILED(hr))
+		{
+			::MessageBoxA(0, (LPCSTR)DXGetErrorDescriptionA(hr), (LPCSTR)DXGetErrorStringA(hr), 0);
+			return;
+		}
+
+		BYTE* pTextureBuffer = static_cast<BYTE*>(pLockedRect.pBits);
+		INT   nTexturePitch = pLockedRect.Pitch;
 		for (UINT row = 0; row < height; ++row)
 		{
-			DWORD* pdwDest = (DWORD*)pTextureBuffer;
+			BYTE* pdwDest = pTextureBuffer;
 
 			for (UINT column = 0; column < width; ++column)
 			{
-				pdwDest[0] = data[row * width * 3 + column * 3];
+				pdwDest[3] = 255;
+				pdwDest[2] = data[row * width * 3 + column * 3];
 				pdwDest[1] = data[row * width * 3 + column * 3 + 1];
-				pdwDest[2] = data[row * width * 3 + column * 3 + 2];
+				pdwDest[0] = data[row * width * 3 + column * 3 + 2];
 
-				pdwDest += 3;
+				pdwDest += 4;
 			}
 			pTextureBuffer += nTexturePitch;
 		}

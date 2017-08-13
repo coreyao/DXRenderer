@@ -16,8 +16,11 @@ public:
 
 	void SetPixelShaderUniform(const std::string& uniformName, float val);
 
+	void SetDiffuseTexture(const std::string& diffuseTex);
+
 
 	Texture* m_diffuseTex;
+	D3DXCONSTANT_DESC DiffuseSampDesc;
 
 	LPDIRECT3DVERTEXSHADER9 m_pVertexShader;
 	LPD3DXCONSTANTTABLE     m_pConstantTableVertex;
