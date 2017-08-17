@@ -11,3 +11,7 @@
 *.opendb
 Renderer.VC.db
 Resources/test.jpg
+.vs/Renderer/v15/.suo
+.vs/Renderer/v15/Browse.VC.db
+Resources/sponza_crytek_max_obj/sponza.obj1
+Resources/sponza_crytek_max_obj/sponza.obj1

@@ -69,7 +69,7 @@ void Application::Cleanup()
 
 void Application::InitScene()
 {
-	m_model = new Model("tt");
+	m_model = new Model("../Resources/sponza_crytek_max_obj/sponza.obj");
 	m_camera = new Camera();
 }
 

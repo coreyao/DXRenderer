@@ -2,6 +2,9 @@
 #include "Core/Application.h"
 #include "Core/Camera.h"
 
+#define TINYOBJLOADER_IMPLEMENTATION
+#include "tiny_obj_loader.h"
+
 struct SVertex
 {
 	D3DXVECTOR3 pos;
@@ -37,7 +40,7 @@ Mesh::Mesh()
 
 	m_mat.CreateVertexShader("../Sources/Shaders/simple_unlit.hlsl", "VSMain");
 	m_mat.CreatePixelShader("../Sources/Shaders/simple_unlit.hlsl", "PSMain");
-	m_mat.SetDiffuseTexture("../Resources/test.jpg");
+	m_mat.SetDiffuseTexture("../Resources/sponza_crytek_max_obj/textures/lion.tga");
 }
 
 Mesh::~Mesh()
@@ -73,6 +76,8 @@ Model::Model(const std::string& fileName)
 	if (fileName.empty())
 		return;
 
+	LoadObjFile(fileName);
+
 	D3DVERTEXELEMENT9 decl[] =
 	{
 		{ 0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
@@ -83,6 +88,60 @@ Model::Model(const std::string& fileName)
 	Application::m_pd3dDevice->CreateVertexDeclaration(decl, &m_pVertexDeclaration);
 
 	m_vMesh.push_back(new Mesh());
+}
+
+void Model::LoadObjFile(const std::string& fileName)
+{
+	tinyobj::attrib_t attrib;
+	std::vector<tinyobj::shape_t> shapes;
+	std::vector<tinyobj::material_t> materials;
+
+	int index = fileName.find_last_of('/');
+	std::string basePath = fileName.substr( 0, index + 1);
+
+	std::string err;
+	bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &err, fileName.c_str(), basePath.c_str(), true);
+	if (!err.empty())
+	{
+		std::cout << err << std::endl;
+	}
+	if (!ret) 
+	{
+		printf("Failed to load/parse %s.\n", fileName.c_str());
+		return;
+	}
+
+	// For each shape
+	for (size_t i = 0; i < shapes.size(); i++)
+	{
+		printf("shape[%ld].name = %s\n", static_cast<long>(i), shapes[i].name.c_str());
+		printf("Size of shape[%ld].indices: %lu\n", static_cast<long>(i), static_cast<unsigned long>(shapes[i].mesh.indices.size()));
+
+		size_t index_offset = 0;
+
+		assert(shapes[i].mesh.num_face_vertices.size() == shapes[i].mesh.material_ids.size());
+
+		printf("shape[%ld].num_faces: %lu\n", static_cast<long>(i), static_cast<unsigned long>(shapes[i].mesh.num_face_vertices.size()));
+
+		// For each face
+		for (size_t f = 0; f < shapes[i].mesh.num_face_vertices.size(); f++) 
+		{
+			size_t fnum = shapes[i].mesh.num_face_vertices[f];
+
+			printf("  face[%ld].fnum = %ld\n", static_cast<long>(f), static_cast<unsigned long>(fnum));
+
+			// For each vertex in the face
+			for (size_t v = 0; v < fnum; v++) 
+			{
+				tinyobj::index_t idx = shapes[i].mesh.indices[index_offset + v];
+				printf("    face[%ld].v[%ld].idx = %d/%d/%d\n", static_cast<long>(f), static_cast<long>(v), idx.vertex_index, idx.normal_index, idx.texcoord_index);
+			}
+
+			printf("  face[%ld].material_id = %d\n", static_cast<long>(f), shapes[i].mesh.material_ids[f]);
+
+			index_offset += fnum;
+		}
+	}
 }
 
 void Model::Render(Camera* pCamera)

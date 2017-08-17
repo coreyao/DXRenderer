@@ -18,13 +18,15 @@ public:
 	Material m_mat;
 };
 
-
 class Model
 {
 public:
 	Model(const std::string& fileName);
 
 	void Render(Camera* pCamera);
+
+private:
+	void LoadObjFile(const std::string& fileName);
 
 	std::vector<Mesh*> m_vMesh;
 	LPDIRECT3DVERTEXDECLARATION9 m_pVertexDeclaration;

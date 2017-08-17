@@ -9,7 +9,7 @@
 #include <string>
 #include <cmath>
 #include <vector>
-
+#include <iostream>
 
 #define PI 3.14159265358979323846f
 #define DEGREES_TO_RADIANS(angleDegrees) (angleDegrees * PI / 180.0f)

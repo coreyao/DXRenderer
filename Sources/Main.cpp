@@ -21,10 +21,8 @@ LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
+int main()
 {
-	UNREFERENCED_PARAMETER(hInst);
-
 	// Register the window class
 	WNDCLASSEX wc =
 	{

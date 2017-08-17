@@ -23,6 +23,12 @@
     <Filter Include="Source Files\Core\Texture">
       <UniqueIdentifier>{2b2f7d61-c637-43f6-836f-0c1bd1b080ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Extern">
+      <UniqueIdentifier>{709cbe0f-56fe-4152-9ce8-2d8a84ebed9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Extern\ObjLoader">
+      <UniqueIdentifier>{9db7157f-599d-46e3-b7f9-95df1ace22d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Sources\Main.cpp">
@@ -48,6 +54,12 @@
     </ClCompile>
     <ClCompile Include="..\Sources\Core\Application.cpp">
       <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Extern\ObjLoader\loader_example.cc">
+      <Filter>Extern\ObjLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Extern\ObjLoader\tiny_obj_loader.cc">
+      <Filter>Extern\ObjLoader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="..\Sources\Core\Application.h">
       <Filter>Source Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Extern\ObjLoader\tiny_obj_loader.h">
+      <Filter>Extern\ObjLoader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
