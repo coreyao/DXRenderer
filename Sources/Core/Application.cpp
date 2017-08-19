@@ -19,10 +19,22 @@ HRESULT Application::Init(HWND hWnd)
 
 	// Set up the structure used to create the D3DDevice
 	D3DPRESENT_PARAMETERS d3dpp;
-	ZeroMemory(&d3dpp, sizeof(d3dpp));
-	d3dpp.Windowed = TRUE;
-	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
+	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
+
+	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
+	d3dpp.EnableAutoDepthStencil = true;
+	d3dpp.Flags = 0;
+	d3dpp.hDeviceWindow = hWnd;
+	d3dpp.Windowed = true;
+	d3dpp.MultiSampleQuality = 0;
+	d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
+
+	d3dpp.BackBufferCount = 1;
+	d3dpp.BackBufferHeight = 0;    //窗口模式，默认使用0
+	d3dpp.BackBufferWidth = 0;    //窗口模式，默认使用0
+	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;    //窗口模式一定得用 D3DPRESENT_INTERVAL_DEFAULT ！
+	d3dpp.FullScreen_RefreshRateInHz = 0;//显示器刷新率，窗口模式该值必须为0
+	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;    //指定系统如何将后台缓冲区的内容复制到前台缓冲区 D3DSWAPEFFECT_DISCARD:清除后台缓存的内容
 
 	// Create the D3DDevice
 	if (FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
@@ -39,19 +51,13 @@ HRESULT Application::Init(HWND hWnd)
 
 void Application::Update(float deltaTime)
 {
-	POINT pot;
-	BOOL ret = GetCursorPos(&pot);
-	if (ret)
-	{
-		
-	}
 }
 
 VOID Application::Render()
 {
 	// Clear the backbuffer to a blue color
-	m_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
-
+	m_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+	
 	// Begin the scene
 	if (SUCCEEDED(m_pd3dDevice->BeginScene()))
 	{

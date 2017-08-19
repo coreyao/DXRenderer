@@ -67,11 +67,9 @@ void Material::SetPixelShaderUniform(const std::string& uniformName, float val)
 void Material::SetDiffuseTexture(const std::string& diffuseTex)
 {
 	if (m_diffuseTex)
-	{
 		delete m_diffuseTex;
-	}
-
 	m_diffuseTex = Texture::GetTexture(diffuseTex);
+
 	UINT count;
 	D3DXHANDLE Samp0Handle = 0;
 	Samp0Handle = m_pConstantTablePixel->GetConstantByName(0, "MeshTextureSampler");

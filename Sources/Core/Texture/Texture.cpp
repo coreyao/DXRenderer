@@ -16,6 +16,9 @@ Texture::Texture(const std::string& str, TextureFormat format)
 
 Texture* Texture::GetTexture(const std::string& str)
 {
+	if (str.empty())
+		return NULL;
+
 	if (m_vLoadedTextures.find(str) == m_vLoadedTextures.end())
 	{
 		Texture* pTex = new Texture(str);
@@ -67,6 +70,10 @@ void Texture::LoadData()
 			pTextureBuffer += nTexturePitch;
 		}
 		m_pDeviceTexture->UnlockRect(0);
+	}
+	else
+	{
+		printf("Missing texture %s\n", m_path.c_str());
 	}
 }
 

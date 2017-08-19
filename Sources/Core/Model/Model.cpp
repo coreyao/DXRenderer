@@ -25,13 +25,15 @@ void Mesh::Render(Camera* pCamera)
 	memcpy((void*)&mViewProj, (void*)&m, sizeof(D3DXMATRIX));
 	m_mat.m_pConstantTableVertex->SetMatrix(Application::m_pd3dDevice, "mViewProj", &mViewProj);
 	m_mat.m_pConstantTablePixel->SetFloat(Application::m_pd3dDevice, "fIntensity", 1.0f);
-	//Application::m_pd3dDevice->SetTexture(m_mat.DiffuseSampDesc.RegisterIndex, m_mat.m_diffuseTex->m_pDeviceTexture);
+
+	if (m_mat.m_diffuseTex)
+		Application::m_pd3dDevice->SetTexture(m_mat.DiffuseSampDesc.RegisterIndex, m_mat.m_diffuseTex->m_pDeviceTexture);
 
 	Application::m_pd3dDevice->SetVertexShader(m_mat.m_pVertexShader);
 	Application::m_pd3dDevice->SetPixelShader(m_mat.m_pPixelShader);
 	Application::m_pd3dDevice->SetStreamSource(0, m_pVB, 0, sizeof(VertexData));
 	//Application::m_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-
+	Application::m_pd3dDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);    // turn on the z-buffer
 	Application::m_pd3dDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, m_vertexData.size() / 3);
 }
 
@@ -127,7 +129,12 @@ void Model::LoadObjFile(const std::string& fileName)
 			index_offset += fnum;
 		}
 
-		m->LoadMeshData(pVertexData, basePath + materials[shapeData.mesh.material_ids[0]].diffuse_texname);
+		const std::string& diffuseMatName = materials[shapeData.mesh.material_ids[0]].diffuse_texname;
+		if (!diffuseMatName.empty())
+			m->LoadMeshData(pVertexData, basePath + diffuseMatName);
+		else
+			m->LoadMeshData(pVertexData, "");
+
 		m_vMesh.push_back(m);
 
 		pVertexData.clear();

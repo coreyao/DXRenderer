@@ -40,8 +40,7 @@ sampler_state
 PS_OUTPUT PSMain(VS_OUTPUT In)
 {
 	PS_OUTPUT Output;
-	//Output.RGBColor = float4(tex2D(MeshTextureSampler, In.TexCoord).rgb, 1.0);
-	Output.RGBColor = float4(1.0, 1.0, 1.0, 1.0);
+	Output.RGBColor = float4(tex2D(MeshTextureSampler, In.TexCoord).rgb, 1.0);
 	return Output;
 }
 
