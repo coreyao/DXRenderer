@@ -4,18 +4,18 @@ float fIntensity;
 struct VS_OUTPUT
 {
 	float4 Position   : POSITION;
-	float3 Color  : COLOR;
+	float3 Normal  : Normal;
 	float2 TexCoord  : TEXCOORD;
 };
 
 VS_OUTPUT VSMain(in float3 vPosition : POSITION,
-				in float3 vColor : COLOR,
+				in float3 vNormal : NORMAL,
 				in float2 vTexCoord : TEXCOORD)
 {
 	VS_OUTPUT Output;
 
 	Output.Position = mul(float4(vPosition.x, vPosition.y, vPosition.z, 1.0), mViewProj);
-	Output.Color = vColor;
+	Output.Normal = vNormal;
 	Output.TexCoord = vTexCoord;
 
 	return Output;
@@ -40,8 +40,8 @@ sampler_state
 PS_OUTPUT PSMain(VS_OUTPUT In)
 {
 	PS_OUTPUT Output;
-	Output.RGBColor = float4(tex2D(MeshTextureSampler, In.TexCoord).rgb * In.Color, 1.0);
-
+	//Output.RGBColor = float4(tex2D(MeshTextureSampler, In.TexCoord).rgb, 1.0);
+	Output.RGBColor = float4(1.0, 1.0, 1.0, 1.0);
 	return Output;
 }
 

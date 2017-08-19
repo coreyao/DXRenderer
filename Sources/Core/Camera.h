@@ -7,7 +7,7 @@ class Camera
 public:
 	Camera();
 
-	const Transform& GetTransform();
+	Transform& GetTransform();
 
 	D3DXMATRIX GetViewMatrix();
 	D3DXMATRIX GetProjectionMatrix();

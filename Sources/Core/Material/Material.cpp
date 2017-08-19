@@ -2,8 +2,8 @@
 #include "Core/Application.h"
 
 Material::Material()
+	: m_diffuseTex(NULL)
 {
-	m_diffuseTex = NULL;
 }
 
 void Material::CreateVertexShader(const std::string& vertexShaderFile, const std::string& mainFunctionName)
@@ -71,7 +71,7 @@ void Material::SetDiffuseTexture(const std::string& diffuseTex)
 		delete m_diffuseTex;
 	}
 
-	m_diffuseTex = new Texture(diffuseTex);
+	m_diffuseTex = Texture::GetTexture(diffuseTex);
 	UINT count;
 	D3DXHANDLE Samp0Handle = 0;
 	Samp0Handle = m_pConstantTablePixel->GetConstantByName(0, "MeshTextureSampler");

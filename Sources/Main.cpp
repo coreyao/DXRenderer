@@ -16,6 +16,9 @@ LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		app.Cleanup();
 		PostQuitMessage(0);
 		return 0;
+	default:
+		app.HandleInput(hWnd, msg, wParam, lParam);
+		break;
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);
@@ -34,7 +37,7 @@ int main()
 
 	// Create the application's window
 	HWND hWnd = CreateWindow(L"Renderer", L"Renderer",
-		WS_OVERLAPPEDWINDOW, 100, 100, 1280, 720,
+		WS_OVERLAPPEDWINDOW, 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT,
 		NULL, NULL, wc.hInstance, NULL);
 
 

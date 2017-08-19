@@ -3,6 +3,8 @@
 #include "Core/Camera.h"
 
 Application::Application()
+	: m_bDragging(false)
+	, m_bWireframe(false)
 {
 }
 
@@ -37,7 +39,12 @@ HRESULT Application::Init(HWND hWnd)
 
 void Application::Update(float deltaTime)
 {
-	
+	POINT pot;
+	BOOL ret = GetCursorPos(&pot);
+	if (ret)
+	{
+		
+	}
 }
 
 VOID Application::Render()
@@ -71,6 +78,79 @@ void Application::InitScene()
 {
 	m_model = new Model("../Resources/sponza_crytek_max_obj/sponza.obj");
 	m_camera = new Camera();
+	m_camera->GetTransform().SetPosition(D3DXVECTOR3(0, 100, -500));
+}
+
+void Application::HandleInput(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	if (uMsg == WM_LBUTTONDOWN)
+	{
+		m_bDragging = true;
+	}
+	else if (uMsg == WM_MOUSEMOVE)
+	{
+		if (m_bDragging)
+		{
+			int iMouseX = (short)LOWORD(lParam);
+			int iMouseY = (short)HIWORD(lParam);
+
+			if (m_lastMousePos == D3DXVECTOR2(0, 0))
+			{
+				m_lastMousePos = D3DXVECTOR2(iMouseX, iMouseY);
+			}
+			else
+			{
+				float yaw = (iMouseX - m_lastMousePos.x) * 0.05f;
+				float pitch = (iMouseY - m_lastMousePos.y) * 0.05f;
+				D3DXVECTOR3 rotation = m_camera->GetTransform().GetEulerRotation();
+				m_camera->GetTransform().SetEulerRotation(D3DXVECTOR3(rotation.x + pitch, rotation.y + yaw, rotation.z));
+
+				m_lastMousePos = D3DXVECTOR2(iMouseX, iMouseY);
+			}
+		}
+	}
+	else if (uMsg == WM_LBUTTONUP)
+	{
+		m_bDragging = false;
+		m_lastMousePos = D3DXVECTOR2(0, 0);
+	}
+	else if (uMsg == WM_KEYDOWN)
+	{
+		const int moveOffset = 10;
+		int keyCode = wParam;
+		D3DXVECTOR3 pos = m_camera->GetTransform().GetPosition();
+		if (keyCode == 0x41)
+		{
+			m_camera->GetTransform().SetPosition(D3DXVECTOR3(pos.x - moveOffset, pos.y, pos.z));
+		}
+		else if (keyCode == 0x44)
+		{
+			m_camera->GetTransform().SetPosition(D3DXVECTOR3(pos.x + moveOffset, pos.y, pos.z));
+		}
+		else if (keyCode == 0x57)
+		{
+			m_camera->GetTransform().SetPosition(D3DXVECTOR3(pos.x, pos.y, pos.z + moveOffset));
+		}
+		else if (keyCode == 0x53)
+		{
+			m_camera->GetTransform().SetPosition(D3DXVECTOR3(pos.x, pos.y, pos.z - moveOffset));
+		}
+		else if (keyCode == 0x51)
+		{
+			m_camera->GetTransform().SetPosition(D3DXVECTOR3(pos.x, pos.y - moveOffset, pos.z));
+		}
+		else if (keyCode == 0x45)
+		{
+			m_camera->GetTransform().SetPosition(D3DXVECTOR3(pos.x, pos.y + moveOffset, pos.z));
+		}
+		else if (keyCode == 0x48)
+		{
+			m_bWireframe = !m_bWireframe;
+			Application::m_pd3dDevice->SetRenderState(D3DRS_FILLMODE, m_bWireframe ? D3DFILL_WIREFRAME : D3DFILL_SOLID);
+		}
+
+	}
+
 }
 
 LPDIRECT3D9 Application::m_pD3D;

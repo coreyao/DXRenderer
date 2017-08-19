@@ -19,6 +19,9 @@ public:
 	TextureFormat m_format;
 	IDirect3DTexture9* m_pDeviceTexture;
 
+	static Texture* GetTexture(const std::string& str);
+	static std::map<std::string, Texture*> m_vLoadedTextures;
+
 private:
 	void LoadData();
 };

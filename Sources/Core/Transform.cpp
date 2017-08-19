@@ -3,7 +3,7 @@
 Transform::Transform()
 {
 	memset(&m_position, 0, sizeof(m_position));
-	memset(&m_scale, 0, sizeof(m_scale));
+	m_scale = D3DXVECTOR3(1, 1, 1);
 	memset(&m_eulerRotation, 0, sizeof(m_eulerRotation));
 	D3DXMatrixIdentity(&m_localToParent);
 }
@@ -59,12 +59,13 @@ const D3DXMATRIX& Transform::GetLocalToParentMatrix()
 	if (m_bDirty)
 	{
 		D3DXMATRIX m;
+		D3DXMATRIX tmp;
 		D3DXMatrixIdentity(&m);
-		m *= *D3DXMatrixScaling(&m, m_scale.x, m_scale.y, m_scale.z);
-		m *= *D3DXMatrixRotationX(&m, DEGREES_TO_RADIANS(m_eulerRotation.x));
-		m *= *D3DXMatrixRotationY(&m, DEGREES_TO_RADIANS(m_eulerRotation.y));
-		m *= *D3DXMatrixRotationZ(&m, DEGREES_TO_RADIANS(m_eulerRotation.z));
-		m *= *D3DXMatrixTranslation(&m, m_position.x, m_position.y, m_position.z);
+		m *= *D3DXMatrixScaling(&tmp, m_scale.x, m_scale.y, m_scale.z);
+ 		m *= *D3DXMatrixRotationX(&tmp, DEGREES_TO_RADIANS(m_eulerRotation.x));
+		m *= *D3DXMatrixRotationY(&tmp, DEGREES_TO_RADIANS(m_eulerRotation.y));
+		m *= *D3DXMatrixRotationZ(&tmp, DEGREES_TO_RADIANS(m_eulerRotation.z));
+		m *= *D3DXMatrixTranslation(&tmp, m_position.x, m_position.y, m_position.z);
 
 		m_localToParent = m;
 	}

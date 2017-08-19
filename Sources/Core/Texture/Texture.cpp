@@ -12,8 +12,21 @@ Texture::Texture(const std::string& str, TextureFormat format)
 	, m_format(format)
 	, m_pDeviceTexture(NULL)
 {
-	LoadData();
 }
+
+Texture* Texture::GetTexture(const std::string& str)
+{
+	if (m_vLoadedTextures.find(str) == m_vLoadedTextures.end())
+	{
+		Texture* pTex = new Texture(str);
+		pTex->LoadData();
+		m_vLoadedTextures[str] = pTex;
+	}
+
+	return m_vLoadedTextures[str];
+}
+
+std::map<std::string, Texture*> Texture::m_vLoadedTextures;
 
 void Texture::LoadData()
 {
