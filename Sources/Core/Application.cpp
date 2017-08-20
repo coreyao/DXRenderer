@@ -82,7 +82,7 @@ void Application::Cleanup()
 
 void Application::InitScene()
 {
-	m_model = new Model("../Resources/sponza_crytek_max_obj/sponza.obj");
+	m_model = new Model("../Resources/sponza_crytek_max_obj/sponza.max");
 	m_camera = new Camera();
 	m_camera->GetTransform().SetPosition(D3DXVECTOR3(0, 100, -500));
 }

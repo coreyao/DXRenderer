@@ -5,6 +5,14 @@
 
 #include "Core/Application.h"
 
+Texture::Texture()
+: m_width(0)
+, m_height(0)
+, m_pDeviceTexture(NULL)
+, m_format(TF_R8G8B8)
+{
+}
+
 Texture::Texture(const std::string& str, TextureFormat format)
 	: m_path(str)
 	, m_width(0)
@@ -22,8 +30,10 @@ Texture* Texture::GetTexture(const std::string& str)
 	if (m_vLoadedTextures.find(str) == m_vLoadedTextures.end())
 	{
 		Texture* pTex = new Texture(str);
-		pTex->LoadData();
-		m_vLoadedTextures[str] = pTex;
+		if (pTex->LoadData())
+			m_vLoadedTextures[str] = pTex;
+		else
+			delete pTex;
 	}
 
 	return m_vLoadedTextures[str];
@@ -31,7 +41,7 @@ Texture* Texture::GetTexture(const std::string& str)
 
 std::map<std::string, Texture*> Texture::m_vLoadedTextures;
 
-void Texture::LoadData()
+bool Texture::LoadData()
 {
 	int width, height, nrChannels;
 	unsigned char *data = stbi_load(m_path.c_str(), &width, &height, &nrChannels, 0);
@@ -41,7 +51,7 @@ void Texture::LoadData()
 		if (FAILED(hr)) 
 		{
 			::MessageBoxA(0, (LPCSTR)DXGetErrorDescriptionA(hr), (LPCSTR)DXGetErrorStringA(hr), 0);
-			return;
+			return false;
 		}
 
 		D3DLOCKED_RECT pLockedRect;
@@ -49,7 +59,7 @@ void Texture::LoadData()
 		if (FAILED(hr))
 		{
 			::MessageBoxA(0, (LPCSTR)DXGetErrorDescriptionA(hr), (LPCSTR)DXGetErrorStringA(hr), 0);
-			return;
+			return false;
 		}
 
 		BYTE* pTextureBuffer = static_cast<BYTE*>(pLockedRect.pBits);
@@ -74,6 +84,9 @@ void Texture::LoadData()
 	else
 	{
 		printf("Missing texture %s\n", m_path.c_str());
+		return false;
 	}
+
+	return true;
 }
 

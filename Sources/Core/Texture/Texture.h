@@ -11,6 +11,7 @@ public:
 		TF_R8G8B8A8,
 	};
 
+	Texture();
 	Texture(const std::string& str, TextureFormat format = TF_R8G8B8);
 
 	std::string m_path;
@@ -23,5 +24,5 @@ public:
 	static std::map<std::string, Texture*> m_vLoadedTextures;
 
 private:
-	void LoadData();
+	bool LoadData();
 };

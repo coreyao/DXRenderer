@@ -75,7 +75,7 @@
     <IntDir>..\Intermediate\</IntDir>
     <ExecutablePath>$(DXSDK_DIR)Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)Include;../Sources;../Extern/STB_Image;../Extern/ObjLoader;../Extern/assimp-3.3.1/include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(DXSDK_DIR)Lib\x86;../Extern/assimp-3.3.1/BUild/code/Release;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;../Extern/assimp-3.3.1/BUild/code/MinSizeRel;$(LibraryPath)</LibraryPath>
     <ReferencePath>$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -99,7 +99,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d9.lib;d3dx9d.lib;dxerr.lib;dxguid.lib;winmm.lib;comctl32.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;d3dx9d.lib;dxerr.lib;dxguid.lib;winmm.lib;comctl32.lib;legacy_stdio_definitions.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <EntryPointName />
