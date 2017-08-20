@@ -84,7 +84,7 @@ Model::~Model()
 void Model::LoadFromFile(const std::string& path)
 {
 	Assimp::Importer importer;
-	const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate);
+	const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
 		std::cout << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
@@ -162,7 +162,8 @@ Mesh* Model::processMesh(aiMesh *mesh, const aiScene *scene)
 	{
 		aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
 		const std::string& diffuseName = loadMaterialTexture(material, aiTextureType_DIFFUSE);
-		pNewMesh->m_mat.SetDiffuseTexture(m_sDirectory + diffuseName);
+		if (!diffuseName.empty())
+			pNewMesh->m_mat.SetDiffuseTexture(m_sDirectory + diffuseName);
 		//loadMaterialTexture(material, aiTextureType_SPECULAR);
 	}
 
